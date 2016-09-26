@@ -15,7 +15,7 @@
             "url": "http://opensource.org/licenses/MIT"
         }
     },
-    "host": "sportproducts.swagger.io",
+    "host": "localhost:8080/Swagger",
     "basePath": "/api",
     "schemes": [
         "http"
