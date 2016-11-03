@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.0",
+        "version": "1.2.3",
         "title": "Sport products",
         "description": "List out different sport product from different sports",
         "termsOfService": "http://www.pind.ee",
@@ -15,8 +15,8 @@
             "url": "http://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:8080/Swagger",
-    "basePath": "/api",
+    "host": "localhost",
+    "basePath": "/Swagger",
     "schemes": [
         "http"
     ],
@@ -27,7 +27,7 @@
         "application/json"
     ],
     "paths": {
-        "/sportproducts": {
+        "/sportproducts/": {
             "get": {
                 "description": "Returns all sport products from the system that the user has access to",
                 "operationId": "findSportproducts",
@@ -39,7 +39,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "sportproductNames",
+                        "name": "name",
                         "in": "query",
                         "description": "sport product names to filter by",
                         "required": false,
@@ -47,15 +47,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv"
-                    },
-                    {
-                        "name": "sport",
-                        "in": "query",
-                        "description": "Sport to filter by",
-                        "required": false,
-                        "type": "string",
-                        "format": "csv"
+                        "collectionFormat": "pipes"
                     }
                 ],
                 "responses": {
@@ -79,12 +71,15 @@
             "post": {
                 "description": "Creates a new sport product.  Duplicates are allowed",
                 "operationId": "addSportproduct",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "sportproduct",
+                        "name": "sportproducts",
                         "in": "body",
                         "description": "Sport product to add",
                         "required": true,
@@ -126,7 +121,7 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "sportproduct",
+                        "name": "sportproducts",
                         "description": "Sport product object that needs to be added",
                         "required": false,
                         "schema": {
@@ -151,40 +146,6 @@
             }
         },
         "/sportproducts/{id}": {
-            "get": {
-                "description": "Returns a user based on a single ID, if the user does not have access to the sport products",
-                "operationId": "findSportproductById",
-                "produces": [
-                    "application/json",
-                    "application/xml",
-                    "text/xml",
-                    "text/html"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of sport product to fetch",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Requested sport product JSON",
-                        "schema": {
-                            "$ref": "#/definitions/sportproduct"
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/errorModel"
-                        }
-                    }
-                }
-            },
             "delete": {
                 "description": "deletes a single sport product based on the ID supplied",
                 "operationId": "deleteSportproduct",
